@@ -5,7 +5,7 @@
 template<class T>
 class LinkedList {
 private:
-  int size = 0;
+  int size;
   Node<T>* head = nullptr;
 
   void pop() {
@@ -16,11 +16,12 @@ private:
 
 public:
   LinkedList() {
+    size = 0;
   }
 
   LinkedList(T data, int priority) {
     head = new Node(data, priority);
-    size++;
+    size = 1;
   }
 
   ~LinkedList() {
@@ -57,5 +58,16 @@ public:
 
   int get_size() {
     return size;
+  }
+
+  T operator[](int index) {
+    if (index >= size) throw std::invalid_argument("Index out of range");
+    int i = 0;
+    Node<T>* tmp = head;
+    while (tmp != nullptr && i != index) {
+      tmp = tmp->get_next();
+      i++;
+    }
+    return tmp->get_data();
   }
 };

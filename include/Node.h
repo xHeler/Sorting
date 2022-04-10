@@ -12,6 +12,7 @@ public:
   Node(T data, int priority) {
     this->priority = priority;
     this->data = data;
+    this->next = nullptr;
   }
 
   T get_data() {
@@ -28,5 +29,9 @@ public:
 
   void set_next(Node* ptr) {
     next = ptr;
+  }
+
+  void set_data(T data) {
+    this->data = data;
   }
 };
