@@ -7,6 +7,7 @@ Driver::Driver(std::string filename) {
 }
 
 void Driver::test(int elements, int repeats) {
+  auto sum = 0;
   file << "Test-int | elements: " << elements << " | repeats: " << repeats << " | Time: nanoseconds\n";
   for (int k = 0; k < repeats; ++k) {
     auto start = std::chrono::steady_clock::now(); //! start
@@ -19,9 +20,11 @@ void Driver::test(int elements, int repeats) {
       list.add(data, priority);
     }
     auto end = std::chrono::steady_clock::now(); //! stop
-    file << std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count()
-         << ";" << std::endl;
+    auto time = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+    file << time << " ns" << std::endl;
+    sum += time;
   }
+  file << "Average: " << sum / repeats << " ns";
 }
 
 int Driver::randint(int range_start, int range_end) {
